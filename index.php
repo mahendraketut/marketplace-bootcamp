@@ -52,7 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["restoreAllProducts"])
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th>Select</th>
+                        <th>
+                            <input class="form-check-input" type="checkbox" id="selectAll"
+                                onclick="selectAllCheckboxes()">
+                        </th>
                         <th>No</th>
                         <th>Product Name</th>
                         <th>Description</th>
@@ -64,28 +67,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["restoreAllProducts"])
                 </thead>
                 <tbody>
                     <?php if (count($products) > 0) : ?>
-                        <?php $counter = 1 ?>
-                        <?php foreach ($products as $product) : ?>
-                            <tr>
-                                <td><input class="form-check-input" type="checkbox" name="selected_ids[]" value="<?php echo $product['id']; ?>"></td>
-                                <td><?php echo $counter ?></td>
-                                <td><?php echo $product['product_name'] ?></td>
-                                <td><?php echo $product['description'] ?></td>
-                                <td><?php echo number_format($product['price'], 2, '.', ',') ?></td>
-                                <td><?php echo $product['quantity'] ?></td>
-                                <td><?php echo number_format($product['price'] * $product['quantity'], 2, '.', ',') ?></td>
-                                <td>
-                                    <a class="btn btn-outline-info" href="View/detail.php?id=<?php echo $product['id'] ?>">View</a>
-                                    <a class="btn btn-outline-warning" href="View/update.php?id=<?php echo $product['id'] ?>">Update</a>
-                                    <a class="btn btn-outline-danger" href="View/delete.php?id=<?php echo $product['id'] ?>">Delete</a>
-                                </td>
-                            </tr>
-                            <?php $counter++ ?>
-                        <?php endforeach ?>
+                    <?php $counter = 1 ?>
+                    <?php foreach ($products as $product) : ?>
+                    <tr>
+                        <td><input class="form-check-input" type="checkbox" name="selected_ids[]"
+                                value="<?php echo $product['id']; ?>"></td>
+                        <td><?php echo $counter ?></td>
+                        <td><?php echo $product['product_name'] ?></td>
+                        <td><?php echo $product['description'] ?></td>
+                        <td><?php echo number_format($product['price'], 2, '.', ',') ?></td>
+                        <td><?php echo $product['quantity'] ?></td>
+                        <td><?php echo number_format($product['price'] * $product['quantity'], 2, '.', ',') ?></td>
+                        <td>
+                            <a class="btn btn-outline-info"
+                                href="View/detail.php?id=<?php echo $product['id'] ?>">View</a>
+                            <a class="btn btn-outline-warning"
+                                href="View/update.php?id=<?php echo $product['id'] ?>">Update</a>
+                            <a class="btn btn-outline-danger"
+                                href="View/delete.php?id=<?php echo $product['id'] ?>">Delete</a>
+                        </td>
+                    </tr>
+                    <?php $counter++ ?>
+                    <?php endforeach ?>
                     <?php else : ?>
-                        <tr>
-                            <td colspan="5">0 result</td>
-                        </tr>
+                    <tr>
+                        <td colspan="5">0 result</td>
+                    </tr>
                     <?php endif ?>
                 </tbody>
             </table>
@@ -98,36 +105,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["restoreAllProducts"])
     <!-- Include Bootstrap JS and Popper.js (required for Bootstrap components) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function handleMultipleDelete() {
-            var selectedIds = [];
+    function handleMultipleDelete() {
+        var selectedIds = [];
 
-            // Loop through checkboxes and collect selected IDs
-            var checkboxes = document.getElementsByName('selected_ids[]');
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    selectedIds.push(checkbox.value);
-                }
-            });
-
-            if (!selectedIds || selectedIds.length == 0) {
-                alert("No products selected for deletion.");
-                return false;
-            } else {
-                var confirmation = confirm("Are you sure to delete the products?");
-                if (confirmation) {
-                    document.getElementById('selectedIdsInput').value = JSON.stringify(selectedIds);
-                    document.getElementById('deleteForm').submit();
-                }
+        // Loop through checkboxes and collect selected IDs
+        var checkboxes = document.getElementsByName('selected_ids[]');
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                selectedIds.push(checkbox.value);
             }
-        }
+        });
 
-        function handleRestore() {
-            var confirmation = confirm("Are you sure to restore all products?");
+        if (!selectedIds || selectedIds.length == 0) {
+            alert("No products selected for deletion.");
+            return false;
+        } else {
+            var confirmation = confirm("Are you sure to delete the products?");
             if (confirmation) {
-                // Submit the form
-                document.getElementById('restoreForm').submit();
+                document.getElementById('selectedIdsInput').value = JSON.stringify(selectedIds);
+                document.getElementById('deleteForm').submit();
             }
         }
+    }
+
+    function handleRestore() {
+        var confirmation = confirm("Are you sure to restore all products?");
+        if (confirmation) {
+            // Submit the form
+            document.getElementById('restoreForm').submit();
+        }
+    }
+
+    function selectAllCheckboxes() {
+        var selectAllCheckbox = document.getElementById('selectAll');
+        var checkboxes = document.getElementsByName('selected_ids[]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+    }
     </script>
 </body>
 

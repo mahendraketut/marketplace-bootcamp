@@ -31,10 +31,13 @@ if (empty($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Product</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         table {
             border-collapse: collapse;
             width: 100%;
+            margin-top: 20px;
         }
 
         th,
@@ -50,29 +53,33 @@ if (empty($_GET['id'])) {
     </style>
 </head>
 
-<body>
+<body class="container mt-4">
     <h2>Delete Product</h2>
-    <a href="../index.php">Back to Product List</a>
+    <a href="../index.php" class="btn btn-primary">Back to Product List</a>
     <br><br>
     <p>Deleted data: </p>
     <?php if (count($productDetails) > 0) : ?>
-        <table>
-            <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
-            <?php foreach ($productDetails as $productArray) : ?>
-                <?php foreach ($productArray as $product) : ?>
-                    <tr>
-                        <td><?php echo $product["id"]; ?></td>
-                        <td><?php echo $product["product_name"]; ?></td>
-                        <td><?php echo $product["price"]; ?></td>
-                        <td><?php echo $product["quantity"]; ?></td>
-                    </tr>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($productDetails as $productArray) : ?>
+                    <?php foreach ($productArray as $product) : ?>
+                        <tr>
+                            <td><?php echo $product["id"]; ?></td>
+                            <td><?php echo $product["product_name"]; ?></td>
+                            <td><?php echo $product["price"]; ?></td>
+                            <td><?php echo $product["quantity"]; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
-            <?php endforeach; ?>
+            </tbody>
         </table>
     <?php else : ?>
         <p>No products deleted</p>
