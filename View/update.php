@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="product_name" class="form-label">Product Name:</label>
             <input type="text" name="product_name"
                 class="form-control <?php echo isset($errors['product_name']) ? 'is-invalid' : ''; ?>"
-                value="<?php echo isset($_POST["product_name"]) ? $_POST["product_name"] : ""; ?>" required>
+                value="<?php echo isset($row[0]['product_name']) ? $row[0]['product_name'] : ''; ?>" required>
             <div class="invalid-feedback">
                 <?php echo isset($errors['product_name']) ? $errors['product_name'] : ''; ?>
             </div>
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="price" class="form-label">Price:</label>
             <input type="text" name="price"
                 class="form-control <?php echo isset($errors['price']) ? 'is-invalid' : ''; ?>"
-                value="<?php echo isset($_POST["price"]) ? $_POST["price"] : ""; ?>" required>
+                value="<?php echo isset($row[0]['price']) ? $row[0]['price'] : ''; ?>" required>
             <div class="invalid-feedback">
                 <?php echo isset($errors['price']) ? $errors['price'] : ''; ?>
             </div>
@@ -111,15 +111,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="quantity" class="form-label">Quantity:</label>
             <input type="text" name="quantity"
                 class="form-control <?php echo isset($errors['quantity']) ? 'is-invalid' : ''; ?>"
-                value="<?php echo isset($_POST["quantity"]) ? $_POST["quantity"] : ""; ?>" required>
+                value="<?php echo isset($row[0]['quantity']) ? $row[0]['quantity'] : ''; ?>" required>
             <div class="invalid-feedback">
                 <?php echo isset($errors['quantity']) ? $errors['quantity'] : ''; ?>
             </div>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description:</label>
-            <textarea name="description"
-                class="form-control"><?php echo isset($_POST["description"]) ? $_POST["description"] : ""; ?></textarea>
+            <textarea name="description" class="form-control"><?php echo $row[0]['description'] ?></textarea>
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
 
