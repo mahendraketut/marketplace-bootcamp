@@ -67,18 +67,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            padding: 20px;
-        }
+    body {
+        padding: 20px;
+    }
 
-        form {
-            max-width: 600px;
-            margin: auto;
-        }
+    form {
+        max-width: 600px;
+        margin: auto;
+    }
 
-        label {
-            margin-top: 10px;
-        }
+    label {
+        margin-top: 10px;
+    }
     </style>
 </head>
 
@@ -87,38 +87,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="../index.php" class="btn btn-primary">Back to Product List</a>
     <br><br>
     <?php if (count($row) > 0) : ?>
-        <form action="" id="update" method="post">
-            <input type="hidden" name="id" value="<?php echo $row[0]['id']; ?>">
-            <div class="mb-3">
-                <label for="product_name" class="form-label">Product Name:</label>
-                <input type="text" name="product_name" class="form-control <?php echo isset($errors['product_name']) ? 'is-invalid' : ''; ?>" value="<?php echo isset($row[0]['product_name']) ? $row[0]['product_name'] : ''; ?>" required>
-                <div class="invalid-feedback">
-                    <?php echo isset($errors['product_name']) ? $errors['product_name'] : ''; ?>
-                </div>
+    <form action="" id="update" method="post">
+        <input type="hidden" name="id" value="<?php echo $row[0]['id']; ?>">
+        <div class="mb-3">
+            <label for="product_name" class="form-label">Product Name:</label>
+            <input type="text" name="product_name"
+                class="form-control <?php echo isset($errors['product_name']) ? 'is-invalid' : ''; ?>"
+                value="<?php echo isset($_POST["product_name"]) ? $_POST["product_name"] : ""; ?>" required>
+            <div class="invalid-feedback">
+                <?php echo isset($errors['product_name']) ? $errors['product_name'] : ''; ?>
             </div>
-            <div class="mb-3">
-                <label for="price" class="form-label">Price:</label>
-                <input type="text" name="price" class="form-control <?php echo isset($errors['price']) ? 'is-invalid' : ''; ?>" value="<?php echo isset($row[0]['price']) ? $row[0]['price'] : ''; ?>" required>
-                <div class="invalid-feedback">
-                    <?php echo isset($errors['price']) ? $errors['price'] : ''; ?>
-                </div>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price:</label>
+            <input type="text" name="price"
+                class="form-control <?php echo isset($errors['price']) ? 'is-invalid' : ''; ?>"
+                value="<?php echo isset($_POST["price"]) ? $_POST["price"] : ""; ?>" required>
+            <div class="invalid-feedback">
+                <?php echo isset($errors['price']) ? $errors['price'] : ''; ?>
             </div>
-            <div class="mb-3">
-                <label for="quantity" class="form-label">Quantity:</label>
-                <input type="text" name="quantity" class="form-control <?php echo isset($errors['quantity']) ? 'is-invalid' : ''; ?>" value="<?php echo isset($row[0]['quantity']) ? $row[0]['quantity'] : ''; ?>" required>
-                <div class="invalid-feedback">
-                    <?php echo isset($errors['quantity']) ? $errors['quantity'] : ''; ?>
-                </div>
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity:</label>
+            <input type="text" name="quantity"
+                class="form-control <?php echo isset($errors['quantity']) ? 'is-invalid' : ''; ?>"
+                value="<?php echo isset($_POST["quantity"]) ? $_POST["quantity"] : ""; ?>" required>
+            <div class="invalid-feedback">
+                <?php echo isset($errors['quantity']) ? $errors['quantity'] : ''; ?>
             </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Description:</label>
-                <textarea name="description" class="form-control"><?php echo $row[0]['description'] ?></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <textarea name="description"
+                class="form-control"><?php echo isset($_POST["description"]) ? $_POST["description"] : ""; ?></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
 
-        </form>
+    </form>
     <?php else : ?>
-        <p>Data not found</p>
+    <p>Data not found</p>
     <?php endif ?>
     <!-- Include Bootstrap JS and Popper.js (required for Bootstrap components) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

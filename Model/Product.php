@@ -4,6 +4,11 @@ require(__DIR__ . '/../Config/init.php');
 
 class Product extends Model
 {
+    /**
+     * Constructor that calls the parent constructor and sets the table name for this class.
+     * $this->tableName is refers to the table name in the database which will be used by this model.
+     * $this->setTableName is a method from the parent class that sets the table name.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -11,13 +16,14 @@ class Product extends Model
     }
 
     /**
-     * Method  to get all products from the database
+     * Method  to get all products from the database and return the result as an associative array.
      */
     public function getAllProducts()
     {
         $stmt = $this->db->selectData($this->tableName, null, 0);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getProductById($id)
     {
